@@ -16,7 +16,7 @@ public class Produto {
 	private String descricao;
 	private BigDecimal preco;
 	private LocalDate dataCadastro = LocalDate.now();
-	@Enumerated(EnumType.STRING)	//cadastra o nome da constante e não o número (posição do enum)
+	@ManyToOne
 	private Categoria categoria;
 
 	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {

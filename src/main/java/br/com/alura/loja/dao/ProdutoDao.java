@@ -34,4 +34,18 @@ public class ProdutoDao {
         String jpql = "SELECT p FROM Produto p";   //essa sintaxe é JPQL, não é SQL
         return em.createQuery(jpql).getResultList(); //getResultList é para disparar o comando no banco
     }
+
+    public List<Produto> buscarPorNome(String nome){
+        String jpql = "SELECT p FROM Produto p WHERE p.nome = :pNome";   //essa sintaxe é JPQL, não é SQL
+        return em.createQuery(jpql)
+                .setParameter("pNome", nome)
+                .getResultList(); //getResultList é para disparar o comando no banco
+    }
+
+    public List<Produto> buscarPorCategoria(String categoria){
+        String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :pNomeCateg";   //essa sintaxe é JPQL, não é SQL
+        return em.createQuery(jpql)
+                .setParameter("pNomeCateg", categoria)
+                .getResultList();
+    }
 }

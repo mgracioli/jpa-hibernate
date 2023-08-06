@@ -3,6 +3,7 @@ package br.com.alura.loja.dao;
 import br.com.alura.loja.modelo.Produto;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProdutoDao {
@@ -32,20 +33,28 @@ public class ProdutoDao {
 
     public List<Produto> buscarTodos(){
         String jpql = "SELECT p FROM Produto p";   //essa sintaxe é JPQL, não é SQL
-        return em.createQuery(jpql).getResultList(); //getResultList é para disparar o comando no banco
+        return em.createQuery(jpql, Produto.class)
+                .getResultList(); //getResultList é para disparar o comando no banco
     }
 
     public List<Produto> buscarPorNome(String nome){
         String jpql = "SELECT p FROM Produto p WHERE p.nome = :pNome";   //essa sintaxe é JPQL, não é SQL
-        return em.createQuery(jpql)
+        return em.createQuery(jpql, Produto.class)
                 .setParameter("pNome", nome)
                 .getResultList(); //getResultList é para disparar o comando no banco
     }
 
     public List<Produto> buscarPorCategoria(String categoria){
         String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :pNomeCateg";   //essa sintaxe é JPQL, não é SQL
-        return em.createQuery(jpql)
+        return em.createQuery(jpql, Produto.class)
                 .setParameter("pNomeCateg", categoria)
                 .getResultList();
+    }
+
+    public BigDecimal buscarPreco(String nome){
+        String jpql = "SELECT p.preco FROM Produto p WHERE p.nome.nome = :pNome";   //essa sintaxe é JPQL, não é SQL
+        return em.createQuery(jpql, BigDecimal.class)
+                .setParameter("pNome", nome)
+                .getSingleResult();
     }
 }
